@@ -49,7 +49,7 @@ class QuickReply extends PureComponent {
       id,
       linkTarget
     } = this.props;
-    const { assistBackgoundColor } = this.context;
+    const { mainColor } = this.context;
 
     const chosenReply = getChosenReply(id);
     if (chosenReply) {
@@ -69,7 +69,7 @@ class QuickReply extends PureComponent {
                     target={linkTarget || '_blank'}
                     rel="noopener noreferrer"
                     className={'rw-reply'}
-                    style={{ borderColor: assistBackgoundColor, color: assistBackgoundColor }}
+                    style={{ borderColor: mainColor, color: mainColor }}
                   >
                     {reply.get('title')}
                   </a>
@@ -81,7 +81,7 @@ class QuickReply extends PureComponent {
                   key={index}
                   className={'rw-reply'}
                   onClick={(e) => { e.stopPropagation(); this.handleClick(reply); }}
-                  style={{ borderColor: assistBackgoundColor, color: assistBackgoundColor }}
+                  style={{ borderColor: mainColor, color: mainColor }}
                 >
                   {reply.get('title')}
                 </div>
