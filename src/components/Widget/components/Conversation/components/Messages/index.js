@@ -132,9 +132,10 @@ class Messages extends Component {
         </div>
       ));
     };
+    const { conversationBackgroundColor, assistBackgoundColor } = this.context;
 
     return (
-      <div id="rw-messages" style={{ backgroundColor: this.context.conversationBackgroundColor }} className="rw-messages-container">
+      <div id="rw-messages" style={{ backgroundColor: conversationBackgroundColor }} className="rw-messages-container">
         { renderMessages() }
         {displayTypingIndication && (
           <div className={`rw-message rw-typing-indication ${profileAvatar && 'rw-with-avatar'}`}>
@@ -142,7 +143,7 @@ class Messages extends Component {
               profileAvatar &&
               <img src={profileAvatar} className="rw-avatar" alt="profile" />
             }
-            <div className="rw-response">
+            <div style={{ backgroundColor: assistBackgoundColor }}className="rw-response">
               <div id="wave">
                 <span className="rw-dot" />
                 <span className="rw-dot" />
