@@ -5,12 +5,14 @@ import { Map } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { usePopper } from 'react-popper';
 
-import { MESSAGES_TYPES } from 'constants';
 import { Image, Message, QuickReply } from 'messagesComponents';
 import { showTooltip as showTooltipAction } from 'actions';
+import { onRemove } from 'utils/dom';
+
 import openLauncher from 'assets/launcher_button.svg';
 import closeIcon from 'assets/clear-button-grey.svg';
 import close from 'assets/clear-button.svg';
+import { MESSAGES_TYPES } from 'constants';
 import Badge from './components/Badge';
 
 import './style.scss';
@@ -34,7 +36,8 @@ const Launcher = ({
   useEffect(() => {
     const setReference = (selector) => {
       const reference = document.querySelectorAll(selector);
-      if (reference && reference.length === 1 && reference[0].classList[0] !== 'rw-launcher') {
+      if (reference && reference.length === 1) {
+        onRemove(reference[0], () => setReferenceElement(null));
         setReferenceElement(reference[0]);
       } else {
         setReferenceElement(null);
@@ -51,7 +54,16 @@ const Launcher = ({
   const [popperElement, setPopperElement] = useState(null);
   const [arrowElement, setArrowElement] = useState(null);
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    modifiers: [{ name: 'arrow', options: { element: arrowElement } }],
+    modifiers: [
+      // The arrow padding ensures it never get on the border where it looks ugly
+      { name: 'arrow', options: { element: arrowElement, padding: 5 } },
+      {
+        name: 'preventOverflow',
+        options: {
+          padding: 15 // 0 by default
+        }
+      }
+    ],
     placement: 'right'
   });
   const className = ['rw-launcher'];
