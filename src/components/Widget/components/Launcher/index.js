@@ -35,6 +35,8 @@ const Launcher = ({
     const setReference = (selector) => {
       const reference = document.querySelectorAll(selector);
       if (reference && reference.length === 1) {
+        console.log(reference.length);
+        console.log(reference);
         setReferenceElement(reference[0]);
       } else {
         setReferenceElement(null);
